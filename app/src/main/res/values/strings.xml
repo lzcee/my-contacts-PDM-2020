@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Meus Contatos</string>
+    <string name="e_mail">E-mail</string>
+    <string name="repeat_password">Repetir Senha</string>
+    <string name="password">Senha</string>
+    <string name="register">Cadastrar</string>
+    <string name="recover_password">Recuperar Senha</string>
+    <string name="send_email">Enviar e-mail</string>
+    <string name="login">Entrar</string>
+</resources>

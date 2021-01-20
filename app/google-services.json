@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "532537045147",
+    "project_id": "mycontacts-f2129",
+    "storage_bucket": "mycontacts-f2129.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:532537045147:android:b8ed71862503eae6b2563e",
+        "android_client_info": {
+          "package_name": "br.edu.ifsp.scl.ads.s5.pdm.mycontacts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "532537045147-001lvsrpmdj62rf73q5dq87apm68btod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9xc56LyEpE3Ne70SxLREp4AbPD72fYDc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "532537045147-001lvsrpmdj62rf73q5dq87apm68btod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
