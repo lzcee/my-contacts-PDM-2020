@@ -7,4 +7,6 @@
     <string name="recover_password">Recuperar Senha</string>
     <string name="send_email">Enviar e-mail</string>
     <string name="login">Entrar</string>
+    <string name="registerTv">Ainda não tem uma conta?</string>
+    <string name="recoverTv">Esqueceu sua senha?</string>
 </resources>
