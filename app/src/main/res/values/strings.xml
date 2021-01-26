@@ -9,4 +9,7 @@
     <string name="login">Entrar</string>
     <string name="registerTv">Ainda não tem uma conta?</string>
     <string name="recoverTv">Esqueceu sua senha?</string>
+    <string name="addContact">Adicionar Contato</string>
+    <string name="phone">Telefone</string>
+    <string name="name">Nome</string>
 </resources>
