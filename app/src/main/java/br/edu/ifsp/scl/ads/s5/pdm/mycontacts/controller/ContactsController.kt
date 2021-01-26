@@ -5,7 +5,7 @@ import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.model.Contact
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.view.MainActivity
 
 class ContactsController (mainActivity: MainActivity) {
-    private val contactsDAO: ContactsDAO = ContactsDAO()
+    val contactsDAO: ContactsDAO = ContactsDAO()
 
     fun add(contact: Contact) = contactsDAO.create(contact)
     fun update(contact: Contact) = contactsDAO.update(contact)

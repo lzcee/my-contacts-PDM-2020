@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.ads.s5.pdm.mycontacts.view
 
+import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -32,7 +33,29 @@ class MainActivity : AppCompatActivity() {
         contactsController = ContactsController(this)
         contacts =  mutableListOf()
 
-        contacts = contactsController.getAll()
+        val getContacts = object: AsyncTask<Void, Void, List<Contact>>() {
+            override fun doInBackground(vararg p0: Void?): List<Contact> {
+                Thread.sleep(5000)
+                return contactsController.getAll()
+            }
+
+            override fun onPreExecute() {
+                super.onPreExecute()
+                activivityMainBinding.progressBar.visibility = View.VISIBLE
+            }
+
+            override fun onPostExecute(result: List<Contact>?) {
+                super.onPostExecute(result)
+
+                if (result != null) {
+                    activivityMainBinding.progressBar.visibility = View.GONE
+                    contacts.clear()
+                    contacts.addAll(result)
+                    contactsAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+        getContacts.execute()
 
         contactsAdapter = ContactsAdapter(contacts)
         contactsLayoutManager = LinearLayoutManager(this)
@@ -46,8 +69,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         val email = Auth.firebaseAuth.currentUser
         if (email != null) {
-            val contactsDAO = ContactsDAO();
-            contactsDAO.create(Contact("teste","988433255","teste@teste.com"))
+
         } else {
             finish()
         }
