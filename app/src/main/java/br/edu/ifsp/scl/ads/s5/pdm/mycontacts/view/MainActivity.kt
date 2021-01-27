@@ -6,17 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.R
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.adapter.ContactsAdapter
+import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.adapter.OnContactClickListener
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.controller.ContactsController
-import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.dao.ContactsDAO
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.databinding.ActivityMainBinding
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.model.Auth
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.model.Contact
-import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.view.MainActivity.Extras.contact
+import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.view.MainActivity.Extras.CONTACT
+import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.view.MainActivity.Extras.VIEW_CONTACT
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnContactClickListener {
     private lateinit var activivityMainBinding: ActivityMainBinding
 
     private lateinit var contacts: MutableList<Contact>
@@ -25,9 +24,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var contactsController: ContactsController
 
     private val newContactRequestCode = 0
+    private val editContactRequestCode = 1
 
     object Extras {
-        val contact = "ContactExtra"
+        val CONTACT = "ContactExtra"
+        val VIEW_CONTACT = "ViewContact"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
         getContacts.execute()
 
-        contactsAdapter = ContactsAdapter(contacts)
+        contactsAdapter = ContactsAdapter(contacts, this)
         contactsLayoutManager = LinearLayoutManager(this)
 
         activivityMainBinding.contactsListRv.adapter = contactsAdapter
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == newContactRequestCode && resultCode == RESULT_OK && data != null) {
-            val newContact = data.getParcelableExtra<Contact>(contact)
+            val newContact = data.getParcelableExtra<Contact>(CONTACT)
             if (newContact != null) {
                 contactsController.add(newContact)
                 contacts.add(newContact)
@@ -93,11 +94,32 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onClick(view: View) {
-//        if (view == activivityMainBinding.sairBt) {
-//            Auth.firebaseAuth.signOut()
-//            finish()
-//        }
+    override fun onContactClick(position: Int) {
+        val contact: Contact = contacts[position]
+
+        val viewIntent = Intent(this, ContactActivity::class.java)
+        viewIntent.putExtra(CONTACT, contact)
+        viewIntent.action = VIEW_CONTACT
+
+        startActivity(viewIntent)
+    }
+
+    override fun onEditMenuItemClick(position: Int) {
+        val contact: Contact = contacts[position]
+
+        val editIntent = Intent(this, ContactActivity::class.java)
+        editIntent.putExtra(CONTACT, contact)
+        startActivityForResult(editIntent, editContactRequestCode)
+    }
+
+    override fun onDeleteMenuItemClick(position: Int) {
+        if (position != -1) {
+            val contact: Contact = contacts[position]
+
+            contactsController.delete(contact.name)
+            contacts.removeAt(position)
+            contactsAdapter.notifyDataSetChanged()
+        }
     }
 
     fun addContact(view: View) {

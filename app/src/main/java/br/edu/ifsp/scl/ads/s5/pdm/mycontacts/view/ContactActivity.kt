@@ -15,6 +15,22 @@ class ContactActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         activityContactBinding = ActivityContactBinding.inflate(layoutInflater)
         setContentView(activityContactBinding.root)
+
+        val contact: Contact? = intent.getParcelableExtra(MainActivity.Extras.CONTACT)
+        if (contact != null) {
+            activityContactBinding.contactNameEt.setText(contact.name)
+            activityContactBinding.contactNameEt.isEnabled = false
+            activityContactBinding.contactPhoneEt.setText(contact.phone)
+
+            activityContactBinding.contactEmailEt.setText(contact.email)
+
+
+            if (intent.action == MainActivity.Extras.VIEW_CONTACT) {
+                activityContactBinding.contactPhoneEt.isEnabled = false
+                activityContactBinding.contactEmailEt.isEnabled = false
+                activityContactBinding.addContactBt.visibility = View.GONE
+            }
+        }
     }
 
     fun addContact(view: View) {
@@ -25,7 +41,7 @@ class ContactActivity : AppCompatActivity() {
         )
 
         val intent = Intent()
-        intent.putExtra(MainActivity.Extras.contact, newContact)
+        intent.putExtra(MainActivity.Extras.CONTACT, newContact)
         setResult(Activity.RESULT_OK, intent)
         finish()
     }
