@@ -83,7 +83,3 @@ class ContactsAdapter(
         return contactsList.size
     }
 }
-
-private fun View.OnCreateContextMenuListener.onEditMenuItemClick(positionClick: Int) {
-
-}

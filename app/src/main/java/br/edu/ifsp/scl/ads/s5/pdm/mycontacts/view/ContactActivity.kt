@@ -21,14 +21,17 @@ class ContactActivity : AppCompatActivity() {
             activityContactBinding.contactNameEt.setText(contact.name)
             activityContactBinding.contactNameEt.isEnabled = false
             activityContactBinding.contactPhoneEt.setText(contact.phone)
-
             activityContactBinding.contactEmailEt.setText(contact.email)
 
 
             if (intent.action == MainActivity.Extras.VIEW_CONTACT) {
+                activityContactBinding.contactViewTv.text = "Visualizar Contato"
                 activityContactBinding.contactPhoneEt.isEnabled = false
                 activityContactBinding.contactEmailEt.isEnabled = false
                 activityContactBinding.addContactBt.visibility = View.GONE
+            } else {
+                activityContactBinding.contactViewTv.text = "Editar Contato"
+                activityContactBinding.addContactBt.text = "Editar Contato"
             }
         }
     }

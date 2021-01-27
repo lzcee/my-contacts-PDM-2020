@@ -91,6 +91,13 @@ class MainActivity : AppCompatActivity(), OnContactClickListener {
                 contacts.add(newContact)
                 contactsAdapter.notifyDataSetChanged()
             }
+        } else if (requestCode == editContactRequestCode && resultCode == RESULT_OK && data != null) {
+            val contact: Contact? = data.getParcelableExtra<Contact>(CONTACT)
+            if (contact != null) {
+                contactsController.update(contact)
+                contacts[contacts.indexOfFirst { it.name == contact.name }] = contact
+                contactsAdapter.notifyDataSetChanged()
+            }
         }
     }
 
