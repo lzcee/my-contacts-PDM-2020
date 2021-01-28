@@ -12,4 +12,5 @@
     <string name="addContact">Adicionar Contato</string>
     <string name="phone">Telefone</string>
     <string name="name">Nome</string>
+    <string name="exit">Sair</string>
 </resources>

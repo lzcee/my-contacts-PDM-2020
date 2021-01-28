@@ -42,6 +42,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEt" />
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/loginGoogleBt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginBt" />
+
     <TextView
         android:id="@+id/recoverPasswordTv"
         android:layout_width="match_parent"
@@ -49,7 +60,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/recoverTv"
         android:textAlignment="center"
-        app:layout_constraintTop_toBottomOf="@+id/loginBt" />
+        app:layout_constraintTop_toBottomOf="@+id/loginGoogleBt" />
 
     <Button
         android:id="@+id/recoverPasswordBt"

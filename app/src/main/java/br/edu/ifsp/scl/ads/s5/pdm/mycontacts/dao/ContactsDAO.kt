@@ -53,7 +53,7 @@ class ContactsDAO {
         }
 
         override fun onCancelled(error: DatabaseError) {
-            TODO("Not yet implemented")
+            Log.d("onCancelled", error.message)
         }
 
         override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {

@@ -4,8 +4,12 @@ import android.content.Intent
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.R
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.adapter.ContactsAdapter
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.adapter.OnContactClickListener
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.controller.ContactsController
@@ -14,6 +18,7 @@ import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.model.Auth
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.model.Contact
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.view.MainActivity.Extras.CONTACT
 import br.edu.ifsp.scl.ads.s5.pdm.mycontacts.view.MainActivity.Extras.VIEW_CONTACT
+import com.google.android.gms.tasks.OnCompleteListener
 
 class MainActivity : AppCompatActivity(), OnContactClickListener {
     private lateinit var activivityMainBinding: ActivityMainBinding
@@ -126,6 +131,28 @@ class MainActivity : AppCompatActivity(), OnContactClickListener {
             contactsController.delete(contact.name)
             contacts.removeAt(position)
             contactsAdapter.notifyDataSetChanged()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.exitMi -> {
+                Auth.firebaseAuth.signOut()
+                Auth.googleSignInClient?.signOut()?.addOnCompleteListener {
+                    val intent= Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                finish()
+                true
+            }
+            else -> false
         }
     }
 
